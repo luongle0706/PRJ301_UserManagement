@@ -42,11 +42,6 @@ public class CreateController extends HttpServlet {
                 userError.setUserIDError("UserID must be in (2, 25)");
                 check = false;
             }
-//            boolean checkDuplicate = dao.checkDuplicate(userID);
-//            if (checkDuplicate) {
-//                userError.setUserIDError("UserID must be unique!");
-//                check = false;
-//            }
             if (fullName.length() < 5 || fullName.length() > 30) {
                 userError.setFullNameError("FullName must be in (5, 30)");
                 check = false;
@@ -58,7 +53,6 @@ public class CreateController extends HttpServlet {
             }
             if (check) {
                 UserDTO user = new UserDTO(userID, fullName, roleID, password);
-//                boolean checkInsert = dao.insert(user);
                 boolean checkInsert = dao.insertV2(user);
                 if (checkInsert) {
                     url = SUCCESS;

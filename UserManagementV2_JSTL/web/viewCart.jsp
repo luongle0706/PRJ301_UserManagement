@@ -136,6 +136,7 @@
             </c:if>
 
             <h3>Total: ${totalPrice}$</h3>
+            ${requestScope.CHECKOUT_ERROR.quantityError}
             <form action="MainController" method="POST">
                 <input type="submit" name="action" value="Checkout"/>
             </form>

@@ -49,7 +49,7 @@ public class MainController extends HttpServlet {
     private static final String REMOVE = "Remove";
     private static final String REMOVE_CONTROLLER = "RemoveController";
     private static final String CHECKOUT = "Checkout";
-    private static final String CHECKOUT_CONTROLLER = "checkout.jsp";
+    private static final String CHECKOUT_CONTROLLER = "CheckoutController";
     private static final String ORDER = "Order";
     private static final String ORDER_CONTROLLER = "OrderController";
     private static final String EDIT = "Edit";

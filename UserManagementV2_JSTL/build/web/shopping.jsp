@@ -74,7 +74,7 @@
             }
         </style>
     </head>
-    <body>
+    <body> 
         <div class="container">
             <h1 style="text-align: center">Gun for life 🗣️🔥</h1>
             <form action="MainController" method="POST">
@@ -100,6 +100,5 @@
             </form>
             ${requestScope.MESSAGE}
         </div>
-
     </body>
 </html>

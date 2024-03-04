@@ -143,7 +143,6 @@
                                 </tbody>
                             </c:if>
                         </c:if>
-
                     </table>
                     <br><h4>Total: ${totalPrice}$</h3>
                 </div>
@@ -152,8 +151,10 @@
                     <form action="MainController" method="POST">
                         <label>Full name:</label>
                         <br><input type="text" id="fullName" name="fullName" required><br>
+                        <label style="color:red">${requestScope.ORDER_ERROR.fullNameError}</label><br>
                         <label>Phone number:</label>
                         <br><input type="text" id="phoneNumber" name="phoneNumber" required><br>
+                        <label style="color:red">${requestScope.ORDER_ERROR.phoneNumberError}</label><br>
                         <label>Delivery address:</label>
                         <br><input type="text" id="address" name="address" required><br>
                         <label>Email address:</label>
@@ -166,12 +167,25 @@
                         </select>
                         <input type="hidden" id="total" name="total" value=${totalPrice}>
                         <div id="buttons">
-                            <input type="submit" name="action" value="Order">
+                            <input type="submit" name="action" value="Order" id="order">
                             <input type="reset" value="Reset">
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>  
         </div>
     </body>
+    <script>
+        let orderBtn = document.getElementById("order");
+        
+        orderBtn.onclick(() => {
+            console.log(${requestScope.SUCCESS_ORDER});
+            let isSuccess = ${requestScope.SUCCESS_ORDER};
+            if(isSuccess) {
+                alert("Ban da dat hang thanh cong! Vui long doi 5s de chuyen huong");
+            } else {
+                alert("Co loi xay ra!");
+            }
+        });
+    </script>
 </html>

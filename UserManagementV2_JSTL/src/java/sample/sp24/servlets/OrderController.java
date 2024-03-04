@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.sp24.user.UserDAO;
 import sample.sp24.user.UserDTO;
 import sample.sp24.user.UserOrderDTO;
 import sample.sp24.weapon.Cart;
 import sample.sp24.weapon.OrderDAO;
 import sample.sp24.weapon.OrderDetailDTO;
+import sample.sp24.weapon.OrderError;
 import sample.sp24.weapon.Weapon;
 
 /**
@@ -29,46 +29,59 @@ import sample.sp24.weapon.Weapon;
 public class OrderController extends HttpServlet {
 
     private static final String ERROR = "checkout.jsp";
-    private static final String SUCCESS = "shopping.html";
+    private static final String SUCCESS = "orderStatus.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        UserDAO dao = new UserDAO();
         OrderDAO orderDao = new OrderDAO();
+        OrderError orderError = new OrderError();
+        boolean process = true;
         try {
             String fullName = request.getParameter("fullName");
+            if (!orderError.checkStringLength(fullName, 5, 50)) {
+                orderError.setFullNameError("Full name length must be between 5-50 characters!");
+                process = false;
+            }
             String phoneNumber = request.getParameter("phoneNumber");
+            if (!orderError.checkStringLength(phoneNumber, 9, 11)) {
+                orderError.setPhoneNumberError("Invalid phone number!");
+                process = false;
+            }
             String address = request.getParameter("address");
             String email = request.getParameter("email");
             String paymentMethod = request.getParameter("paymentMethod");
             Double total = Double.parseDouble(request.getParameter("total"));
+
             HttpSession session = request.getSession(false);
-            if (session.getAttribute("LOGIN_USER") != null) {
+            if (session.getAttribute("LOGIN_USER") != null && process) {
                 UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
                 Cart cart = (Cart) session.getAttribute("CART");
-                if (cart != null) {
-                    UserOrderDTO userOrder = new UserOrderDTO(user.getUserID(), total, fullName, phoneNumber, address, email, paymentMethod);
-                    boolean checkOrder = dao.submitOrder(userOrder);
-                    if (checkOrder) {
-                        boolean flag = true;
-                        for (Map.Entry<String, Weapon> item : cart.getCart().entrySet()) {
-                            String key = item.getKey();
-                            Weapon value = item.getValue();
-                            OrderDetailDTO orderDetail = new OrderDetailDTO(key, userOrder.getOrderID(), value.getPrice(), value.getQuantity());
-                            boolean insertOrderDetail = orderDao.insertOrderDetail(orderDetail);
-                            if (!insertOrderDetail) {
-                                flag = false;
-                                break;
-                            }
-                        }
-                        if (flag) {
-                            request.getSession().removeAttribute("CART");
-                            url = SUCCESS;
+                UserOrderDTO userOrder = new UserOrderDTO(user.getUserID(), total, fullName,
+                        phoneNumber, address, email, paymentMethod);
+                boolean checkOrder = orderDao.submitOrder(userOrder);
+                if (checkOrder) {
+                    boolean flag = true;
+                    for (Map.Entry<String, Weapon> item : cart.getCart().entrySet()) {
+                        String key = item.getKey();
+                        Weapon value = item.getValue();
+                        OrderDetailDTO orderDetail = new OrderDetailDTO(key, userOrder.getOrderID(), 
+                                value.getPrice(), value.getQuantity());
+                        boolean insertOrderDetail = orderDao.insertOrderDetail(orderDetail);
+                        if (!insertOrderDetail) {
+                            flag = false;
+                            break;
                         }
                     }
+                    if (flag) {
+                        request.getSession().removeAttribute("CART");
+                        request.setAttribute("SUCCESS_ORDER", userOrder);
+                        url = SUCCESS;
+                    }
                 }
+            } else {
+                request.setAttribute("ORDER_ERROR", orderError);
             }
         } catch (Exception e) {
             log("Error at OderController" + e.toString());
