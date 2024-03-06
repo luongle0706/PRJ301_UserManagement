@@ -82,6 +82,9 @@ public class OrderDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if (ptmUpdate != null) {
+                ptmUpdate.close();
+            }
             if (ptmInsert != null) {
                 ptmInsert.close();
             }

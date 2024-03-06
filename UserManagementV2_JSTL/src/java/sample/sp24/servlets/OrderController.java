@@ -84,7 +84,7 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("ORDER_ERROR", orderError);
             }
         } catch (Exception e) {
-            log("Error at OderController" + e.toString());
+            log("Error at OrderController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
