@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/UserManagementV2_JSTL"/>
+<Context path="/UserManagementV2_JSTL">
+    <Resource name="DBCon" type="javax.sql.DataSource"
+              username="sa" password="12345"
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              url="jdbc:sqlserver://localhost:1433;databaseName=UserManagement">
+        
+    </Resource>
+</Context>

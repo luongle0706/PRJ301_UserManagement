@@ -60,7 +60,7 @@
             input[type="reset"]:hover {
                 background-color: #0056b3;
             }
-            #buttons {
+            .buttons {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -93,9 +93,12 @@
                     <option value="5">5</option>
                     <option value="10">10</option>
                 </select>
-                <div id="buttons">
+                <div class="buttons">
                     <input type="submit" name="action" value="Add"/>
                     <input type="submit" name="action" value="View"/>
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="action" value="Logout"/>
                 </div>
             </form>
             ${requestScope.MESSAGE}

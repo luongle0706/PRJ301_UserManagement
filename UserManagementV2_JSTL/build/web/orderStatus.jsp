@@ -69,6 +69,5 @@
         setTimeout(() => {
             window.location.href = "shopping.html";
         }, 5000);
-
     </script>
 </html>

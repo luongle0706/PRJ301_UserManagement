@@ -39,7 +39,7 @@ public class CheckoutController extends HttpServlet {
         CheckoutError checkoutError = new CheckoutError();
         try {
             HttpSession session = request.getSession(false);
-            if (session.getAttribute("LOGIN_USER") != null) {
+            if (session != null && session.getAttribute("LOGIN_USER") != null) {
                 Cart cart = (Cart) session.getAttribute("CART");
                 if (cart != null) {
                     List<Weapon> unavailableItems = checkOrderQuantity(cart);
@@ -54,6 +54,8 @@ public class CheckoutController extends HttpServlet {
                         url = SUCCESS;
                     }
                 }
+            } else {
+                request.setAttribute("SESSION_ERROR", "Het phien dang nhap, vui long dang nhap lai!");
             }
         } catch (Exception e) {
             log("Error at CheckoutController" + e.toString());

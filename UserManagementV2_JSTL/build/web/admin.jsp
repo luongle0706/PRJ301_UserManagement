@@ -74,7 +74,7 @@
             }
 
             table {
-                width: 100%;
+                width: 70%;
                 border-collapse: collapse;
                 margin-top: 20px;
             }
@@ -139,9 +139,6 @@
         </style>
     </head>
     <body>
-        <c:if test="${sessionScope.LOGIN_USER == null || sessionScope.LOGIN_USER.roleID ne 'AD'}">
-            <c:redirect url="login.html"></c:redirect>
-        </c:if>
         <h1>Welcome: ${sessionScope.LOGIN_USER.fullName}</h1>
         <c:url var="logoutLink" value="MainController">
             <c:param name="action" value="Logout"></c:param>
@@ -155,55 +152,54 @@
             Search:<input type="text" name="search" value="${param.search}"/>
             <input type="submit" name="action" value="Search"/>                   
         </form>
+        <div class="error">
+            ${requestScope.ERROR}
+        </div>
         <c:if test="${requestScope.LIST_USER != null}">
             <c:if test="${not empty requestScope.LIST_USER}">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>User ID</th>
-                            <th>Full Name</th>
-                            <th>Role ID</th>
-                            <th>Password</th>
-                            <th>Update</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="user" varStatus="counter" items="${requestScope.LIST_USER}">
-                        <form action="MainController" method="POST">
+                <div class="center">
+                    <table border="1">
+                        <thead>
                             <tr>
-                                <td>${counter.count}</td>
-                                <td><input type="text" name="userID" value="${user.userID}" readonly=""</td>
-                                <td><input type="text" name="fullName" value="${user.fullName}" required=""</td>
-                                <td><input type="text" name="roleID" value="${user.roleID}" required=""</td>
-                                <td>${user.password}</td>
-                                <!--update o day ne -->
-                                <td>
-                                    <input type="submit" name="action" value="Update"/>
-                                    <input type="hidden" name="search" value="${param.search}"/>
-                                </td> 
-                                <!--delete o day ne -->
-                                <td>
-                                    <c:url var="deleteLink" value="MainController">
-                                        <c:param name="action" value="Delete"></c:param>
-                                        <c:param name="userID" value="${user.userID}"></c:param>
-                                        <c:param name="search" value="${param.search}"></c:param>
-                                    </c:url>
-                                    <a class="button"href="${deleteLink}">Delete</a>
-                                </td>
+                                <th>No</th>
+                                <th>User ID</th>
+                                <th>Full Name</th>
+                                <th>Role ID</th>
+                                <th>Password</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
-                        </form>  
-                    </c:forEach>
-
-                </tbody>
-            </table>
-            <div class="error">
-                ${requestScope.ERROR}
-            </div>
-
+                        </thead>
+                        <tbody>
+                            <c:forEach var="user" varStatus="counter" items="${requestScope.LIST_USER}">
+                            <form action="MainController" method="POST">
+                                <tr>
+                                    <td>${counter.count}</td>
+                                    <td><input type="text" name="userID" value="${user.userID}" readonly=""/></td>
+                                    <td><input type="text" name="fullName" value="${user.fullName}" required=""/></td>
+                                    <td><input type="text" name="roleID" value="${user.roleID}" required=""/></td>
+                                    <td>${user.password}</td>
+                                    <!--update o day ne -->
+                                    <td>
+                                        <input type="submit" name="action" value="Update"/>
+                                        <input type="hidden" name="search" value="${param.search}"/>
+                                    </td> 
+                                    <!--delete o day ne -->
+                                    <td>
+                                        <c:url var="deleteLink" value="MainController">
+                                            <c:param name="action" value="Delete"></c:param>
+                                            <c:param name="userID" value="${user.userID}"></c:param>
+                                            <c:param name="search" value="${param.search}"></c:param>
+                                        </c:url>
+                                        <a class="button"href="${deleteLink}">Delete</a>
+                                    </td>
+                                </tr>
+                            </form>  
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
         </c:if>
-
-    </c:if>
-</body>
+    </body>
 </html>

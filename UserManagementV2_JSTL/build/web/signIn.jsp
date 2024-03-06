@@ -78,21 +78,21 @@
             <h2>Sign In</h2>
             <form action="MainController" method="POST" id="form" onsubmit="return validateRecaptcha()">
                 <label>User ID:</label>
-                <input type="text" id="userID" name="userID" required>
+                <input type="text" id="userID" name="userID" required/>
                 <label class="error">${requestScope.USER_ERROR.userIDError}</label><br>
                 <label>Full name:</label>
-                <input type="text" id="fullName" name="fullName" required>
+                <input type="text" id="fullName" name="fullName" required/>
                 <label class="error">${requestScope.ERROR.fullNameError}</label><br>
                 <label>Password:</label>
-                <input type="password" id="password" name="password" required><br><br>
+                <input type="password" id="password" name="password" required/><br><br>
                 <label>Confirm password:</label>
-                <input type="password" id="confirm" name="confirm" required>
+                <input type="password" id="confirm" name="confirm" required/>
                 <label class="error">${requestScope.ERROR.confirmError}</label><br>
                 <div class="g-recaptcha" data-sitekey="6LcMe3spAAAAAOlRnXmcwnwjBnEB1cY8lWZCVBtr"></div>
                 <div id="error"></div>
                 <div id="buttons">
-                <input type="submit" name="action" value="Create">
-                <input type="reset" value="Reset">
+                <input type="submit" name="action" value="Create"/>
+                <input type="reset" value="Reset"/>
                 </div>
                 <br><label class="error">${requestScope.ERROR.error}</label>
             </form>

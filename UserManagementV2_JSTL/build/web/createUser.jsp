@@ -61,7 +61,7 @@
             input[type="reset"]:hover {
                 background-color: #0056b3;
             }
-            #buttons {
+            .buttons {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -76,13 +76,13 @@
     </head>
     <body>
         <div class="container">
-            <h2>Create User</h2>
+            <h2 style="text-align: center;">Create User</h2>
             <form action="MainController" method="POST">
                 <label>User ID:</label>
-                <input type="text" id="userID" name="userID" required>
+                <input type="text" id="userID" name="userID" required/>
                 <label class="error">${requestScope.USER_ERROR.userIDError}</label><br>
                 <label>Full name:</label>
-                <input type="text" id="fullName" name="fullName" required>
+                <input type="text" id="fullName" name="fullName" required/>
                 <label class="error">${requestScope.USER_ERROR.fullNameError}</label><br>
                 <label>Role ID:</label>
                 <select name="roleID">
@@ -90,13 +90,13 @@
                     <option value="US">US</option>
                 </select><br><br>
                 <label>Password:</label>
-                <input type="password" id="password" name="password" required><br><br>
+                <input type="password" id="password" name="password" required/><br><br>
                 <label>Confirm password:</label>
-                <input type="password" id="confirm" name="confirm" required>
+                <input type="password" id="confirm" name="confirm" required/>
                 <label class="error">${requestScope.USER_ERROR.confirmError}</label><br>
-                <div id="buttons">
-                <input type="submit" name="action" value="Create">
-                <input type="reset" value="Reset">
+                <div class="buttons">
+                <input type="submit" name="action" value="Create"/>
+                <input type="reset" value="Reset"/>
                 </div>
                 <br><label class="error">${requestScope.USER_ERROR.error}</label>
             </form>

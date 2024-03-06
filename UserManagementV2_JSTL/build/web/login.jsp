@@ -60,7 +60,7 @@
             input[type="reset"]:hover {
                 background-color: #0056b3;
             }
-            #buttons, #error, .g-recaptcha {
+            .buttons, #error, .g-recaptcha {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -102,17 +102,17 @@
     </head>
     <body>
         <div class="container">
-            <h2>Login</h2>
+            <h2 style="text-align: center;">Login</h2>
             <form action="MainController" method="POST" id="form" onsubmit="return validateRecaptcha()">
                 <label for="userId">User ID:</label>
-                <input type="text" id="userId" name="userID" required>
+                <input type="text" id="userId" name="userID" required/>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" required/>
                 <div class="g-recaptcha" data-sitekey="6LcMe3spAAAAAOlRnXmcwnwjBnEB1cY8lWZCVBtr"></div>
                 <div id="error"></div>
-                <div id="buttons">
-                    <input type="submit" name="action" value="Login">
-                    <input type="reset" value="Reset">
+                <div class="buttons">
+                    <input type="submit" name="action" value="Login"/>
+                    <input type="reset" value="Reset"/>
                 </div>
             </form>
             

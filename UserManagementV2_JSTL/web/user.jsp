@@ -60,10 +60,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 style="color: red;">User page</h1></br>
-            <c:if test="${sessionScope.LOGIN_USER == null || sessionScope.LOGIN_USER.roleID ne 'US'}">
-                <c:redirect url="login.html"></c:redirect>
-            </c:if>
+            <h1 style="color: red; text-align: center;">User page</h1></br>
             UserID: ${sessionScope.LOGIN_USER.userID}</br>
             FullName: ${sessionScope.LOGIN_USER.fullName}</br>
             RoleID: ${sessionScope.LOGIN_USER.roleID}</br>
